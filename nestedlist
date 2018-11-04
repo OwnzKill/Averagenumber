@@ -1,0 +1,44 @@
+import sys
+import math
+import string
+import ast
+
+digits = string.digits
+rawinput = sys.argv[1:]
+numberlist = []
+counter = 0
+newlist = []
+
+rawinput = ' '.join(rawinput)
+
+if rawinput[0] == '\\': 
+    rawinput = rawinput[2:]
+
+def normal_lists(x):  # good for one list inputs
+    for characters in x:
+        if characters in digits:
+            numberlist.append(characters)
+    print(numberlist)
+    average = 0
+    for characters in numberlist:
+        average += int(characters)
+    average = average / len(numberlist)
+    average = math.floor(average)
+    print('Average approval rate is ', average, sep='')
+  
+#I need help with this one
+def nested_lists(x):
+    average = 0
+    listinput = ast.literal_eval(rawinput)
+    print(listinput)
+    for part in listinput:
+        print(part)
+
+def checknested(x): #check here if list in nested or not, if list nested: call nested_lists, if not: call normal_lists
+    counter = rawinput.count('[')
+    if counter > 1:
+        nested_lists(rawinput)
+    if counter == 1:
+        normal_lists(rawinput)
+
+checknested(rawinput)
